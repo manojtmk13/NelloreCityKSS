@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KSS|Kutumba Sadikara Saradulut</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/choices.js/9.0.1/choices.min.css">
+  <style>
+    :root {
+      --primary-color: #4a6fdc;
+      --success-color: #28a745;
+      --danger-color: #dc3545;
+      --warning-color: #ffc107;
+      --info-color: #17a2b8;
+      --light-color: #f8f9fa;
+      --dark-color: #343a40;
+      --border-color: #dee2e6;
+      --border-radius: 0.25rem;
+      --box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f5f7fa;
+      padding: 20px;
+    }
+    
+    .form-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      margin-bottom: 30px;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    .header h2 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+    }
+    
+    .subtitle {
+      color: #6c757d;
+      font-size: 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.25rem;
+      color: var(--dark-color);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .editing-badge {
+      display: none;
+      font-size: 0.75rem;
+      background-color: var(--warning-color);
+      color: #212529;
+      padding: 3px 8px;
+      border-radius: 12px;
+    }
+    
+    .form-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      background-color: #f8f9fa;
+      border-radius: 6px;
+    }
+    
+    .form-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #495057;
+    }
+    
+    input, select {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(74, 111, 220, 0.25);
+    }
+    
+    .btn-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+    }
+    
+    .btn-success {
+      background-color: var(--success-color);
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #218838;
+    }
+    
+    .btn-outline {
+      background-color: transparent;
+      border: 1px solid var(--border-color);
+      color: #6c757d;
+    }
+    
+    .btn-outline:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .table-container {
+      margin-top: 40px;
+    }
+    
+    .table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .table-title {
+      font-size: 1.25rem;
+      color: var(--dark-color);
+    }
+    
+    .badge {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      box-shadow: var(--box-shadow);
+      background-color: white;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    th, td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    
+    th {
+      background-color: #f8f9fa;
+      color: #495057;
+      font-weight: 600;
+    }
+    
+    tr:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .action-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      margin-right: 5px;
+      color: var(--primary-color);
+      transition: var(--transition);
+    }
+    
+    .delete-btn {
+      color: var(--danger-color);
+    }
+    
+    .action-btn:hover {
+      transform: scale(1.1);
+    }
+    
+    .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      background-color: white;
+      border-radius: 6px;
+      box-shadow: var(--box-shadow);
+      text-align: center;
+    }
+    
+    .empty-state i {
+      font-size: 3rem;
+      color: #adb5bd;
+      margin-bottom: 15px;
+    }
+    
+    .empty-text {
+      color: #6c757d;
+      margin-bottom: 10px;
+    }
+    
+    .alert {
+      padding: 12px 15px;
+      margin-bottom: 20px;
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 0.3s;
+    }
+    
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    
+    #backToTopBtn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+    
+    #backToTopBtn.visible {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .editing-mode {
+      border-left: 4px solid var(--warning-color);
+    }
+    
+    @media (max-width: 768px) {
+      .form-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .btn-container {
+        flex-direction: column;
+      }
+      
+      .btn {
+        width: 100%;
+      }
+      
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container" id="formContainer">
+    <div class="header">
+      <h2>KSS - Kutumba Sadikara Saradulut</h2>
+      <p class="subtitle">Enter and track booth KSS information</p>
+    </div>
+    
+    <div id="alertContainer"></div>
+    
+    <form id="membershipForm">
+      <input type="hidden" id="editIndex" value="" />
+      
+      <div class="form-section">
+        <h3 class="section-title">Booth Information <span class="editing-badge" id="editingBadge">Editing Entry</span></h3>
+        <div class="form-layout">
+          <div class="form-group">
+            <label for="serialNo">Serial No</label>
+            <input type="text" id="serialNo" placeholder="Enter serial number" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="booth">Booth Number</label>
+            <input type="text" id="booth" placeholder="Enter booth number" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="fromSerial">From Serial No</label>
+            <input type="text" id="fromSerial" placeholder="Enter starting serial number" required />
+          </div>
+          
+          <div class="form-group">
+            <label for="toSerial">To Serial No</label>
+            <input type="text" id="toSerial" placeholder="Enter ending serial number" required />
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-section">
+        <h3 class="section-title">First Member Details</h3>
+        <div class="form-layout">
+          <div class="form-group">
+            <label for="firstMemberID">Membership ID</label>
+            <input type="text" id="firstMemberID" placeholder="Enter membership ID" required />
+          </div>
+      
+          <div class="form-group">
+            <label for="firstMemberMobile">Mobile Number</label>
+            <input type="tel" id="firstMemberMobile" placeholder="Enter mobile number" required />
+          </div>
+      
+          <div class="form-group">
+            <label for="firstMemberCaste">Caste Category</label>
+            <select id="firstMemberCaste" required>
+              <option value="">Select caste category</option>
+              <option value="Aandh_ST">Aandh_ST</option>
+              <option value="AASADULA_BC">AASADULA_BC</option>
+              <option value="Achukuntla Vandlu_BC">Achukuntla Vandlu_BC</option>
+              <option value="Adi Dravida_SC">Adi Dravida_SC</option>
+              <option value="AdiAndhra_SC">AdiAndhra_SC</option>
+              <option value="Agamudayar_OC">Agamudayar_OC</option>
+              <option value="Agamudi Mudaliar _BC">Agamudi Mudaliar _BC</option>
+              <option value="Agaru_BC">Agaru_BC</option>
+              <option value="Agnikula kshathriya_BC">Agnikula kshathriya_BC</option>
+              <option value="Anamakh_SC">Anamakh_SC</option>
+              <option value="Andhravida_SC">Andhravida_SC</option>
+              <option value="Arae_BC">Arae_BC</option>
+              <option value="Arakalies and Surabi natakalavallu_BC">Arakalies and Surabi natakalavallu_BC</option>
+              <option value="Arapamala_SC">Arapamala_SC</option>
+              <option value="Arava_BC">Arava_BC</option>
+              <option value="Are Marathi_BC">Are Marathi_BC</option>
+              <option value="Arekatika_BC">Arekatika_BC</option>
+              <option value="Aremala_SC">Aremala_SC</option>
+              <option value="Arundatheeya_SC">Arundatheeya_SC</option>
+              <option value="Arwa Mala_SC">Arwa Mala_SC</option>
+              <option value="Arya Kshathrya_BC">Arya Kshathrya_BC</option>
+              <option value="Atagara_BC">Atagara_BC</option>
+              <option value="Atirasa_BC">Atirasa_BC</option>
+              <option value="Avusala_BC">Avusala_BC</option>
+              <option value="Ayyaraka_BC">Ayyaraka_BC</option>
+              <option value="Badar_BC">Badar_BC</option>
+              <option value="Bagatha_ST">Bagatha_ST</option>
+              <option value="Balasanthu_BC">Balasanthu_BC</option>
+              <option value="Balija Kapu_OC">Balija Kapu_OC</option>
+              <option value="Balija_OC">Balija_OC</option>
+              <option value="Bandara_BC">Bandara_BC</option>
+              <option value="Banda_BC">Banda_BC</option>
+              <option value="Banjara_BC">Banjara_BC</option>
+              <option value="Barhika Duliya_ST">Barhika Duliya_ST</option>
+              <option value="Barigi_SC">Barigi_SC</option>
+              <option value="Batraju_BC">Batraju_BC</option>
+              <option value="Bavuri_SC">Bavuri_SC</option>
+              <option value="BC - C (Cristians)_MINORITY">BC - C (Cristians)_MINORITY</option>
+              <option value="Bedajangam_SC">Bedajangam_SC</option>
+              <option value="Begara_SC">Begara_SC</option>
+              <option value="Behar_BC">Behar_BC</option>
+              <option value="Bendla_SC">Bendla_SC</option>
+              <option value="Bengali_OC">Bengali_OC</option>
+              <option value="Beri Sheety_BC">Beri Sheety_BC</option>
+              <option value="Bestha_BC">Bestha_BC</option>
+              <option value="Bhadbhunja_BC">Bhadbhunja_BC</option>
+              <option value="Bhahurupi_BC">Bhahurupi_BC</option>
+              <option value="Bhunjwa_BC">Bhunjwa_BC</option>
+              <option value="Bikshaka Vruthi_BC">Bikshaka Vruthi_BC</option>
+              <option value="Biksham Gunta_BC">Biksham Gunta_BC</option>
+              <option value="Bil_ST">Bil_ST</option>
+              <option value="Bindla_SC">Bindla_SC</option>
+              <option value="Binedu_SC">Binedu_SC</option>
+              <option value="Bodo Gadaba_ST">Bodo Gadaba_ST</option>
+              <option value="Bondili_BC">Bondili_BC</option>
+              <option value="Boya_BC">Boya_BC</option>
+              <option value="Brahmin_OC">Brahmin_OC</option>
+              <option value="Buda Bukkala_BC">Buda Bukkala_BC</option>
+              <option value="Budaga Jangam_SC">Budaga Jangam_SC</option>
+              <option value="Budubunjala_BC">Budubunjala_BC</option>
+              <option value="Bukka Ayyavara_BC">Bukka Ayyavara_BC</option>
+              <option value="Bukka_BC">Bukka_BC</option>
+              <option value="Byagara_SC">Byagara_SC</option>
+              <option value="Chachati_SC">Chachati_SC</option>
+              <option value="Chacherlu_OC">Chacherlu_OC</option>
+              <option value="Chalavadi_SC">Chalavadi_SC</option>
+              <option value="Challavadi_SC">Challavadi_SC</option>
+              <option value="Chamar_SC">Chamar_SC</option>
+              <option value="Chambar_SC">Chambar_SC</option>
+              <option value="Chanchandi_SC">Chanchandi_SC</option>
+              <option value="Chandala_SC">Chandala_SC</option>
+              <option value="Chavati_SC">Chavati_SC</option>
+              <option value="Chenchu Varu_ST">Chenchu Varu_ST</option>
+              <option value="Chenchumuni_ST">Chenchumuni_ST</option>
+              <option value="Chimpollu_BC">Chimpollu_BC</option>
+              <option value="Chithari_BC">Chithari_BC</option>
+              <option value="Chithrakara_BC">Chithrakara_BC</option>
+              <option value="Chitti Karanam_OC">Chitti Karanam_OC</option>
+              <option value="Chopamali_BC">Chopamali_BC</option>
+              <option value="Christian_OC">Christian_OC</option>
+              <option value="Converted Harijans_BC">Converted Harijans_BC</option>
+              <option value="Dakkal/Dakkala Varu_SC">Dakkal/Dakkala Varu_SC</option>
+              <option value="Damala_BC">Damala_BC</option>
+              <option value="Dandasi_SC">Dandasi_SC</option>
+              <option value="Dasari (BC-A)_BC">Dasari (BC-A)_BC</option>
+              <option value="Dasari (BC-D)_BC">Dasari (BC-D)_BC</option>
+              <option value="Deseeya kondulu _ST">Deseeya kondulu _ST</option>
+              <option value="Desiya Dondulu _ST">Desiya Dondulu _ST</option>
+              <option value="Devanga_BC">Devanga_BC</option>
+              <option value="Devara Vandlu_BC">Devara Vandlu_BC</option>
+              <option value="Dhor_SC">Dhor_SC</option>
+              <option value="Dhulia_ST">Dhulia_ST</option>
+              <option value="DomDombara_SC">DomDombara_SC</option>
+              <option value="Dommara_BC">Dommara_BC</option>
+              <option value="Dondra Kodulu _ST">Dondra Kodulu _ST</option>
+              <option value="Dudekula_MINORITY">Dudekula_MINORITY</option>
+              <option value="Ediga_BC">Ediga_BC</option>
+              <option value="EKILA_BC">EKILA_BC</option>
+              <option value="Ekiri_BC">Ekiri_BC</option>
+              <option value="Ellamma Vandlu_BC">Ellamma Vandlu_BC</option>
+              <option value="Ellasi_BC">Ellasi_BC</option>
+              <option value="Erla_ST">Erla_ST</option>
+              <option value="Gadabalu_ST">Gadabalu_ST</option>
+              <option value="Gadabas_ST">Gadabas_ST</option>
+              <option value="Gadava_BC">Gadava_BC</option>
+              <option value="Gajula Balija_BC">Gajula Balija_BC</option>
+              <option value="Gamalla Kalali_BC">Gamalla Kalali_BC</option>
+              <option value="Gandla_BC">Gandla_BC</option>
+              <option value="Ganga Varu_BC">Ganga Varu_BC</option>
+              <option value="Gangaputhra_BC">Gangaputhra_BC</option>
+              <option value="Gangireddu Varu_BC">Gangireddu Varu_BC</option>
+              <option value="Ganuga Sheety_BC">Ganuga Sheety_BC</option>
+              <option value="Gasi_SC">Gasi_SC</option>
+              <option value="Gavara_BC">Gavara_BC</option>
+              <option value="Ghasi_SC">Ghasi_SC</option>
+              <option value="Ginghar_BC">Ginghar_BC</option>
+              <option value="Giniyar_BC">Giniyar_BC</option>
+              <option value="Godagali_SC">Godagali_SC</option>
+              <option value="Godari_SC">Godari_SC</option>
+              <option value="Gondlu_BC">Gondlu_BC</option>
+              <option value="Gondu_ST">Gondu_ST</option>
+              <option value="Gosam_SC">Gosam_SC</option>
+              <option value="Gosangi_SC">Gosangi_SC</option>
+              <option value="Gotrala_BC">Gotrala_BC</option>
+              <option value="Goud-ST_ST">Goud-ST_ST</option>
+              <option value="Gouda_BC">Gouda_BC</option>
+              <option value="Goudh_ST">Goudh_ST</option>
+              <option value="Goundla_BC">Goundla_BC</option>
+              <option value="Gudala_BC">Gudala_BC</option>
+              <option value="Gudia_BC">Gudia_BC</option>
+              <option value="Gudiya_BC">Gudiya_BC</option>
+              <option value="Gutob Gadaba_ST">Gutob Gadaba_ST</option>
+              <option value="Haddi (or) Relli chachandi_SC">Haddi (or) Relli chachandi_SC</option>
+              <option value="Haddi_SC">Haddi_SC</option>
+              <option value="Harijans_SC">Harijans_SC</option>
+              <option value="Hatkhar_BC">Hatkhar_BC</option>
+              <option value="Hill Reddis_ST">Hill Reddis_ST</option>
+              <option value="Huleya Dasari_SC">Huleya Dasari_SC</option>
+              <option value="Huleya_SC">Huleya_SC</option>
+              <option value="Jaggali_SC">Jaggali_SC</option>
+              <option value="JaJnbllvulu_SC">JaJnbllvulu_SC</option>
+              <option value="Jakkula_BC">Jakkula_BC</option>
+              <option value="Jalari_BC">Jalari_BC</option>
+              <option value="Jambavulu_SC">Jambavulu_SC</option>
+              <option value="Jandra_BC">Jandra_BC</option>
+              <option value="Jangam_BC">Jangam_BC</option>
+              <option value="Jathapass_ST">Jathapass_ST</option>
+              <option value="Jogi_BC">Jogi_BC</option>
+              <option value="Jogula_SC">Jogula_SC</option>
+              <option value="Joshinandala Bala_BC">Joshinandala Bala_BC</option>
+              <option value="Kachi_BC">Kachi_BC</option>
+              <option value="Kaikadi_BC">Kaikadi_BC</option>
+              <option value="Kaikala_BC">Kaikala_BC</option>
+              <option value="Kaitha Lambadi(Labhana)_BC">Kaitha Lambadi(Labhana)_BC</option>
+              <option value="Kakkana_BC">Kakkana_BC</option>
+              <option value="Kalai Balija_OC">Kalai Balija_OC</option>
+              <option value="Kalavanthulu Ganika_BC">Kalavanthulu Ganika_BC</option>
+              <option value="Kalinga Vysya_OC">Kalinga Vysya_OC</option>
+              <option value="KALINGA_BC">KALINGA_BC</option>
+              <option value="kallayi gadaba_ST">kallayi gadaba_ST</option>
+              <option value="Kalli Kapu_BC">Kalli Kapu_BC</option>
+              <option value="Kammara (BC)_BC">Kammara (BC)_BC</option>
+              <option value="Kammara (ST)_ST">Kammara (ST)_ST</option>
+              <option value="Kamma_OC">Kamma_OC</option>
+              <option value="Kamsali/Vishva Bramhana_BC">Kamsali/Vishva Bramhana_BC</option>
+              <option value="Kanchra _BC">Kanchra _BC</option>
+              <option value="Kandhra_BC">Kandhra_BC</option>
+              <option value="Kanjara Battu_BC">Kanjara Battu_BC</option>
+              <option value="Kapu Kapu_OC">Kapu Kapu_OC</option>
+              <option value="Kapu-ST_ST">Kapu-ST_ST</option>
+              <option value="Kapu_OC">Kapu_OC</option>
+              <option value="KARANAM_BC">KARANAM_BC</option>
+              <option value="KARIKALABHAKTHULA_BC">KARIKALABHAKTHULA_BC</option>
+              <option value="Karna Bakthulu_BC">Karna Bakthulu_BC</option>
+              <option value="KARNABHAKTHULA_BC">KARNABHAKTHULA_BC</option>
+              <option value="Kasikapadi_BC">Kasikapadi_BC</option>
+              <option value="Kathri_BC">Kathri_BC</option>
+              <option value="Kati Papala_BC">Kati Papala_BC</option>
+              <option value="Katunaikan_ST">Katunaikan_ST</option>
+              <option value="Kavali_BC">Kavali_BC</option>
+              <option value="Kerala_OC">Kerala_OC</option>
+              <option value="Keuta_BC">Keuta_BC</option>
+              <option value="Keviti_BC">Keviti_BC</option>
+              <option value="Kevuto_BC">Kevuto_BC</option>
+              <option value="Kinthala Kalinga_BC">Kinthala Kalinga_BC</option>
+              <option value="Kirathaka_BC">Kirathaka_BC</option>
+              <option value="Kodhu_ST">Kodhu_ST</option>
+              <option value="Kodi_ST">Kodi_ST</option>
+              <option value="Kolam_ST">Kolam_ST</option>
+              <option value="Kolawar_ST">Kolawar_ST</option>
+              <option value="Koluvula Vandlu_SC">Koluvula Vandlu_SC</option>
+              <option value="Kompara/Reddika_BC">Kompara/Reddika_BC</option>
+              <option value="Konda Doralu_ST">Konda Doralu_ST</option>
+              <option value="Konda Kapulu_ST">Konda Kapulu_ST</option>
+              <option value="Konda Reddlu_ST">Konda Reddlu_ST</option>
+              <option value="Kondlu_ST">Kondlu_ST</option>
+              <option value="Koppula Velama_BC">Koppula Velama_BC</option>
+              <option value="Koputiya_ST">Koputiya_ST</option>
+              <option value="Koram_ST">Koram_ST</option>
+              <option value="Korcha_BC">Korcha_BC</option>
+              <option value="Kosti_BC">Kosti_BC</option>
+              <option value="Kotiya Benthu_ST">Kotiya Benthu_ST</option>
+              <option value="Kotiya_ST">Kotiya_ST</option>
+              <option value="Koya_ST">Koya_ST</option>
+              <option value="Krushna Balija_BC">Krushna Balija_BC</option>
+              <option value="Kshathriya (BC)_BC">Kshathriya (BC)_BC</option>
+              <option value="Kshatriya (OC)_OC">Kshatriya (OC)_OC</option>
+              <option value="Kuliya_ST">Kuliya_ST</option>
+              <option value="Kulwalapai_ST">Kulwalapai_ST</option>
+              <option value="Kummara_BC">Kummara_BC</option>
+              <option value="Kunapuli_BC">Kunapuli_BC</option>
+              <option value="Kunkuma_BC">Kunkuma_BC</option>
+              <option value="Kuraba_BC">Kuraba_BC</option>
+              <option value="Kurakala_BC">Kurakala_BC</option>
+              <option value="Kurni_BC">Kurni_BC</option>
+              <option value="Kuruma_BC">Kuruma_BC</option>
+              <option value="Kuttiya Kodulu _ST">Kuttiya Kodulu _ST</option>
+              <option value="Labbai_BC">Labbai_BC</option>
+              <option value="Laddaf_MINORITY">Laddaf_MINORITY</option>
+              <option value="Lakkamari Kapu_BC">Lakkamari Kapu_BC</option>
+              <option value="Lambada_BC">Lambada_BC</option>
+              <option value="Lambadi_ST">Lambadi_ST</option>
+              <option value="Lingayat_BC">Lingayat_BC</option>
+              <option value="Lodha_BC">Lodha_BC</option>
+              <option value="Lodhi_BC">Lodhi_BC</option>
+              <option value="Lodh_BC">Lodh_BC</option>
+              <option value="Madiga Dasu_SC">Madiga Dasu_SC</option>
+              <option value="Madiga_SC">Madiga_SC</option>
+              <option value="Madisi Kuruva/Madaari Kuruva_SC">Madisi Kuruva/Madaari Kuruva_SC</option>
+              <option value="Mahar_SC">Mahar_SC</option>
+              <option value="Mahathar_BC">Mahathar_BC</option>
+              <option value="Mala Dasari_SC">Mala Dasari_SC</option>
+              <option value="Mala Hannai_SC">Mala Hannai_SC</option>
+              <option value="Mala Jangam_SC">Mala Jangam_SC</option>
+              <option value="Mala Masthi_SC">Mala Masthi_SC</option>
+              <option value="Mala Sala_SC">Mala Sala_SC</option>
+              <option value="Mala sanyasi_SC">Mala sanyasi_SC</option>
+              <option value="Maladasu_ST">Maladasu_ST</option>
+              <option value="Mala_SC">Mala_SC</option>
+              <option value="Malin_ST">Malin_ST</option>
+              <option value="Mali_BC">Mali_BC</option>
+              <option value="Mandala (BC)_BC">Mandala (BC)_BC</option>
+              <option value="Mandala (SC)_SC">Mandala (SC)_SC</option>
+              <option value="Mandula_BC">Mandula_BC</option>
+              <option value="Mang Garodi_SC">Mang Garodi_SC</option>
+              <option value="Manga_SC">Manga_SC</option>
+              <option value="Manna Dora_ST">Manna Dora_ST</option>
+              <option value="Mannepu_SC">Mannepu_SC</option>
+              <option value="Mannevaru_ST">Mannevaru_ST</option>
+              <option value="Manne_SC">Manne_SC</option>
+              <option value="MARATI_OC">MARATI_OC</option>
+              <option value="MARWADI_OC">MARWADI_OC</option>
+              <option value="Masthima_SC">Masthima_SC</option>
+              <option value="Masthi_SC">Masthi_SC</option>
+              <option value="Mathangi_SC">Mathangi_SC</option>
+              <option value="Mathaya Vavaras (or) Kuttu Vavaras_ST">Mathaya Vavaras (or) Kuttu Vavaras_ST</option>
+              <option value="Mathula_BC">Mathula_BC</option>
+              <option value="MAYDARA_BC">MAYDARA_BC</option>
+              <option value="Medari_BC">Medari_BC</option>
+              <option value="Mehthar_SC">Mehthar_SC</option>
+              <option value="Mera Darji_BC">Mera Darji_BC</option>
+              <option value="Mitha Iyala Varu_SC">Mitha Iyala Varu_SC</option>
+              <option value="Mochi_SC">Mochi_SC</option>
+              <option value="Mohamad_MINORITY">Mohamad_MINORITY</option>
+              <option value="Mondi Banda_BC">Mondi Banda_BC</option>
+              <option value="Mondi Varu_BC">Mondi Varu_BC</option>
+              <option value="Mondipatta_BC">Mondipatta_BC</option>
+              <option value="Moochi_SC">Moochi_SC</option>
+              <option value="Muchi_BC">Muchi_BC</option>
+              <option value="Mudaliar_BC">Mudaliar_BC</option>
+              <option value="Mudhiraj_BC">Mudhiraj_BC</option>
+              <option value="Muka Dora_ST">Muka Dora_ST</option>
+              <option value="MUNDALA_SC">MUNDALA_SC</option>
+              <option value="Munnoor Kapu_BC">Munnoor Kapu_BC</option>
+              <option value="Muslim_MINORITY">Muslim_MINORITY</option>
+              <option value="Mutharasi_BC">Mutharasi_BC</option>
+              <option value="Muthyalamma Vandlu_BC">Muthyalamma Vandlu_BC</option>
+              <option value="Myralu_OC">Myralu_OC</option>
+              <option value="N/A_BC">N/A_BC</option>
+              <option value="Nadar_OC">Nadar_OC</option>
+              <option value="Nagaralu_BC">Nagaralu_BC</option>
+              <option value="Nagavaddilu_BC">Nagavaddilu_BC</option>
+              <option value="Nagavamsha_BC">Nagavamsha_BC</option>
+              <option value="Nagavasam _BC">Nagavasam _BC</option>
+              <option value="Naikpoth_ST">Naikpoth_ST</option>
+              <option value="Naik_ST">Naik_ST</option>
+              <option value="Nakhan_BC">Nakhan_BC</option>
+              <option value="Nakkala_BC">Nakkala_BC</option>
+              <option value="Nambi_OC">Nambi_OC</option>
+              <option value="Nashadi_BC">Nashadi_BC</option>
+              <option value="Nashni/Kurni_BC">Nashni/Kurni_BC</option>
+              <option value="Natari_BC">Natari_BC</option>
+              <option value="Nayaka_ST">Nayaka_ST</option>
+              <option value="Nayani Varu_BC">Nayani Varu_BC</option>
+              <option value="Nayanivaru_BC">Nayanivaru_BC</option>
+              <option value="Nayee Brahmin_BC">Nayee Brahmin_BC</option>
+              <option value="Nayyala_BC">Nayyala_BC</option>
+              <option value="Neelikanti_BC">Neelikanti_BC</option>
+              <option value="Nelli_BC">Nelli_BC</option>
+              <option value="NEPALI_SC">NEPALI_SC</option>
+              <option value="Nera Pravruthi Kalavaru_BC">Nera Pravruthi Kalavaru_BC</option>
+              <option value="Nershakari_BC">Nershakari_BC</option>
+              <option value="Nessi_BC">Nessi_BC</option>
+              <option value="Nethekani_SC">Nethekani_SC</option>
+              <option value="Nokkara_BC">Nokkara_BC</option>
+              <option value="Nooka Dora_ST">Nooka Dora_ST</option>
+              <option value="Oreganti Reddy_OC">Oreganti Reddy_OC</option>
+              <option value="OTHERS-BC_BC">OTHERS-BC_BC</option>
+              <option value="OTHERS-OC_OC">OTHERS-OC_OC</option>
+              <option value="OTHERS-SC_SC">OTHERS-SC_SC</option>
+              <option value="OTHERS-ST_ST">OTHERS-ST_ST</option>
+              <option value="OTHERS_BC">OTHERS_BC</option>
+              <option value="Padmashali_BC">Padmashali_BC</option>
+              <option value="Paidi/pano_SC">Paidi/pano_SC</option>
+              <option value="Paiko_ST">Paiko_ST</option>
+              <option value="Paki (or) Mothi_SC">Paki (or) Mothi_SC</option>
+              <option value="Pala Ekari_BC">Pala Ekari_BC</option>
+              <option value="Palegaru_BC">Palegaru_BC</option>
+              <option value="Pallepu Kapu_BC">Pallepu Kapu_BC</option>
+              <option value="Palli Kapu_BC">Palli Kapu_BC</option>
+              <option value="Palli Reddy_BC">Palli Reddy_BC</option>
+              <option value="Palli_BC">Palli_BC</option>
+              <option value="Pambala_BC">Pambala_BC</option>
+              <option value="Pamidi_SC">Pamidi_SC</option>
+              <option value="Pamula_BC">Pamula_BC</option>
+              <option value="Panchama (or) Pariyuhi_SC">Panchama (or) Pariyuhi_SC</option>
+              <option value="Panda_OC">Panda_OC</option>
+              <option value="Panjari_BC">Panjari_BC</option>
+              <option value="Pannari_BC">Pannari_BC</option>
+              <option value="Parangi Parcha_ST">Parangi Parcha_ST</option>
+              <option value="Pardhan_ST">Pardhan_ST</option>
+              <option value="Parthi_BC">Parthi_BC</option>
+              <option value="Paspi_BC">Paspi_BC</option>
+              <option value="Passi_BC">Passi_BC</option>
+              <option value="Pathan_MINORITY">Pathan_MINORITY</option>
+              <option value="Patkhar_BC">Patkhar_BC</option>
+              <option value="Patlavu_BC">Patlavu_BC</option>
+              <option value="Patnayak(BC)_BC">Patnayak(BC)_BC</option>
+              <option value="Patnayak_OC">Patnayak_OC</option>
+              <option value="PATRA_BC">PATRA_BC</option>
+              <option value="Pattapu_BC">Pattapu_BC</option>
+              <option value="Pattusali_BC">Pattusali_BC</option>
+              <option value="Peddaboya_BC">Peddaboya_BC</option>
+              <option value="Peddama Vandlu_BC">Peddama Vandlu_BC</option>
+              <option value="Perika Balija _BC">Perika Balija _BC</option>
+              <option value="Perika_BC">Perika_BC</option>
+              <option value="Pinjari/Noorbash_MINORITY">Pinjari/Noorbash_MINORITY</option>
+              <option value="Piriki Muggula_BC">Piriki Muggula_BC</option>
+              <option value="Pitchiguntla_BC">Pitchiguntla_BC</option>
+              <option value="Polinati Velama_BC">Polinati Velama_BC</option>
+              <option value="Pondara_BC">Pondara_BC</option>
+              <option value="Poosala(BC-A)_BC">Poosala(BC-A)_BC</option>
+              <option value="Poosala(BC-D)_BC">Poosala(BC-D)_BC</option>
+              <option value="Porja_ST">Porja_ST</option>
+              <option value="Porvam Bikshaka Vruthi_BC">Porvam Bikshaka Vruthi_BC</option>
+              <option value="Pusala_OC">Pusala_OC</option>
+              <option value="Putiya_ST">Putiya_ST</option>
+              <option value="Rajaka_BC">Rajaka_BC</option>
+              <option value="Rajannala_BC">Rajannala_BC</option>
+              <option value="Rajput_OC">Rajput_OC</option>
+              <option value="Rajugondu_ST">Rajugondu_ST</option>
+              <option value="Raju_OC">Raju_OC</option>
+              <option value="Rangaraju/Bhavasara Kshatriya_BC">Rangaraju/Bhavasara Kshatriya_BC</option>
+              <option value="Ravula_OC">Ravula_OC</option>
+              <option value="Reddika_BC">Reddika_BC</option>
+              <option value="Reddy Dora_ST">Reddy Dora_ST</option>
+              <option value="Reddy Kapu_OC">Reddy Kapu_OC</option>
+              <option value="Reddy Reddy_OC">Reddy Reddy_OC</option>
+              <option value="Reddy_OC">Reddy_OC</option>
+              <option value="Relli_SC">Relli_SC</option>
+              <option value="Rona Rena_ST">Rona Rena_ST</option>
+              <option value="Sabeerlu_SC">Sabeerlu_SC</option>
+              <option value="Sadara_BC">Sadara_BC</option>
+              <option value="Sadushetti_BC">Sadushetti_BC</option>
+              <option value="Saikalgar_BC">Saikalgar_BC</option>
+              <option value="Sakulasali_BC">Sakulasali_BC</option>
+              <option value="Samagara_SC">Samagara_SC</option>
+              <option value="Samanthula_BC">Samanthula_BC</option>
+              <option value="Samband_SC">Samband_SC</option>
+              <option value="Sambas_SC">Sambas_SC</option>
+              <option value="Sandrona_ST">Sandrona_ST</option>
+              <option value="Sangundam_BC">Sangundam_BC</option>
+              <option value="Sapru_SC">Sapru_SC</option>
+              <option value="Sardhan_ST">Sardhan_ST</option>
+              <option value="Sathani_BC">Sathani_BC</option>
+              <option value="Savaras Kapusavaras_ST">Savaras Kapusavaras_ST</option>
+              <option value="Seervi_BC">Seervi_BC</option>
+              <option value="Settibalija_BC">Settibalija_BC</option>
+              <option value="Shilpi_BC">Shilpi_BC</option>
+              <option value="Siddula_BC">Siddula_BC</option>
+              <option value="Sidopaiko_ST">Sidopaiko_ST</option>
+              <option value="Sikh_MINORITY">Sikh_MINORITY</option>
+              <option value="Sikligar_BC">Sikligar_BC</option>
+              <option value="Silpis viswakarma_BC">Silpis viswakarma_BC</option>
+              <option value="Sindollu_SC">Sindollu_SC</option>
+              <option value="Singh_OC">Singh_OC</option>
+              <option value="Sistakaranam_BC">Sistakaranam_BC</option>
+              <option value="sondi_BC">sondi_BC</option>
+              <option value="Sountia_BC">Sountia_BC</option>
+              <option value="Sri Sayan_BC">Sri Sayan_BC</option>
+              <option value="Sugaleelu_ST">Sugaleelu_ST</option>
+              <option value="sundi_BC">sundi_BC</option>
+              <option value="Surya Balija_BC">Surya Balija_BC</option>
+              <option value="Suryavamsha Rajulu_BC">Suryavamsha Rajulu_BC</option>
+              <option value="Syed_MINORITY">Syed_MINORITY</option>
+              <option value="Telaga_OC">Telaga_OC</option>
+              <option value="Telikula_BC">Telikula_BC</option>
+              <option value="Telugu Matlade Varu_BC">Telugu Matlade Varu_BC</option>
+              <option value="test23_BC">test23_BC</option>
+              <option value="test_BC">test_BC</option>
+              <option value="Thalikula_BC">Thalikula_BC</option>
+              <option value="Thammali_BC">Thammali_BC</option>
+              <option value="Thenugollu_BC">Thenugollu_BC</option>
+              <option value="Thikakariya Kodulu _ST">Thikakariya Kodulu _ST</option>
+              <option value="Thogati Thogata_BC">Thogati Thogata_BC</option>
+              <option value="Thoti (BC)_SC">Thoti (BC)_SC</option>
+              <option value="Thoti (ST)_ST">Thoti (ST)_ST</option>
+              <option value="Thurapu Kapu/Gajula Kapu_BC">Thurapu Kapu/Gajula Kapu_BC</option>
+              <option value="Tolagari_BC">Tolagari_BC</option>
+              <option value="Uppara/Sankara_BC">Uppara/Sankara_BC</option>
+              <option value="Uppu vadde_BC">Uppu vadde_BC</option>
+              <option value="Vadabalija_BC">Vadabalija_BC</option>
+              <option value="Vaddera_BC">Vaddera_BC</option>
+              <option value="Vaddi_BC">Vaddi_BC</option>
+              <option value="Vaddolu_BC">Vaddolu_BC</option>
+              <option value="Vadla_BC">Vadla_BC</option>
+              <option value="Vadrangi_BC">Vadrangi_BC</option>
+              <option value="Vadra_BC">Vadra_BC</option>
+              <option value="Valli Reddy_BC">Valli Reddy_BC</option>
+              <option value="Valli_BC">Valli_BC</option>
+              <option value="Valluvan_SC">Valluvan_SC</option>
+              <option value="Valmiki Boya_BC">Valmiki Boya_BC</option>
+              <option value="Valmiki(BC)_BC">Valmiki(BC)_BC</option>
+              <option value="Valmiki_ST">Valmiki_ST</option>
+              <option value="Vamsharaj_BC">Vamsharaj_BC</option>
+              <option value="Vanjari_BC">Vanjari_BC</option>
+              <option value="Vanne Kapu_BC">Vanne Kapu_BC</option>
+              <option value="Vanne Reddy_BC">Vanne Reddy_BC</option>
+              <option value="Vannekapu_BC">Vannekapu_BC</option>
+              <option value="Vanyakulakshatriya_BC">Vanyakulakshatriya_BC</option>
+              <option value="varala_BC">varala_BC</option>
+              <option value="Vatti Kothala_BC">Vatti Kothala_BC</option>
+              <option value="Vedabaliga_BC">Vedabaliga_BC</option>
+              <option value="Veerabhadreeya_BC">Veerabhadreeya_BC</option>
+              <option value="Veerashaiva LingayatLingabalija_BC">Veerashaiva LingayatLingabalija_BC</option>
+              <option value="Velama_OC">Velama_OC</option>
+              <option value="Venka Kula_BC">Venka Kula_BC</option>
+              <option value="Vera Musti_BC">Vera Musti_BC</option>
+              <option value="Vodde Yeddelu_BC">Vodde Yeddelu_BC</option>
+              <option value="Vokkaliga_BC">Vokkaliga_BC</option>
+              <option value="Voriya/bentu Voriya_ST">Voriya/bentu Voriya_ST</option>
+              <option value="Vyakula_BC">Vyakula_BC</option>
+              <option value="Vysya_OC">Vysya_OC</option>
+              <option value="Yadava_BC">Yadava_BC</option>
+              <option value="Yalam Reddy_OC">Yalam Reddy_OC</option>
+              <option value="Yatala_SC">Yatala_SC</option>
+              <option value="Yata_BC">Yata_BC</option>
+              <option value="Yellimal Varu_SC">Yellimal Varu_SC</option>
+              <option value="Yenadi_ST">Yenadi_ST</option>
+              <option value="Yerukala_ST">Yerukala_ST</option>
+              <option value="Yoniti Kodulu_ST">Yoniti Kodulu_ST</option>              
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <h3 class="section-title">Second Member Details</h3>
+        <div class="form-layout">
+          <div class="form-group">
+            <label for="secondMemberID">Membership ID</label>
+            <input type="text" id="secondMemberID" placeholder="Enter membership ID" required />
+          </div>
+      
+          <div class="form-group">
+            <label for="secondMemberMobile">Mobile Number</label>
+            <input type="tel" id="secondMemberMobile" placeholder="Enter mobile number" required />
+          </div>
+      
+          <div class="form-group">
+            <label for="secondMemberCaste">Caste Category</label>
+            <select id="secondMemberCaste" required>
+              <option value="">Select caste category</option>
+              <option value="Aandh_ST">Aandh_ST</option>
+              <option value="AASADULA_BC">AASADULA_BC</option>
+              <option value="Achukuntla Vandlu_BC">Achukuntla Vandlu_BC</option>
+              <option value="Adi Dravida_SC">Adi Dravida_SC</option>
+              <option value="AdiAndhra_SC">AdiAndhra_SC</option>
+              <option value="Agamudayar_OC">Agamudayar_OC</option>
+              <option value="Agamudi Mudaliar _BC">Agamudi Mudaliar _BC</option>
+              <option value="Agaru_BC">Agaru_BC</option>
+              <option value="Agnikula kshathriya_BC">Agnikula kshathriya_BC</option>
+              <option value="Anamakh_SC">Anamakh_SC</option>
+              <option value="Andhravida_SC">Andhravida_SC</option>
+              <option value="Arae_BC">Arae_BC</option>
+              <option value="Arakalies and Surabi natakalavallu_BC">Arakalies and Surabi natakalavallu_BC</option>
+              <option value="Arapamala_SC">Arapamala_SC</option>
+              <option value="Arava_BC">Arava_BC</option>
+              <option value="Are Marathi_BC">Are Marathi_BC</option>
+              <option value="Arekatika_BC">Arekatika_BC</option>
+              <option value="Aremala_SC">Aremala_SC</option>
+              <option value="Arundatheeya_SC">Arundatheeya_SC</option>
+              <option value="Arwa Mala_SC">Arwa Mala_SC</option>
+              <option value="Arya Kshathrya_BC">Arya Kshathrya_BC</option>
+              <option value="Atagara_BC">Atagara_BC</option>
+              <option value="Atirasa_BC">Atirasa_BC</option>
+              <option value="Avusala_BC">Avusala_BC</option>
+              <option value="Ayyaraka_BC">Ayyaraka_BC</option>
+              <option value="Badar_BC">Badar_BC</option>
+              <option value="Bagatha_ST">Bagatha_ST</option>
+              <option value="Balasanthu_BC">Balasanthu_BC</option>
+              <option value="Balija Kapu_OC">Balija Kapu_OC</option>
+              <option value="Balija_OC">Balija_OC</option>
+              <option value="Bandara_BC">Bandara_BC</option>
+              <option value="Banda_BC">Banda_BC</option>
+              <option value="Banjara_BC">Banjara_BC</option>
+              <option value="Barhika Duliya_ST">Barhika Duliya_ST</option>
+              <option value="Barigi_SC">Barigi_SC</option>
+              <option value="Batraju_BC">Batraju_BC</option>
+              <option value="Bavuri_SC">Bavuri_SC</option>
+              <option value="BC - C (Cristians)_MINORITY">BC - C (Cristians)_MINORITY</option>
+              <option value="Bedajangam_SC">Bedajangam_SC</option>
+              <option value="Begara_SC">Begara_SC</option>
+              <option value="Behar_BC">Behar_BC</option>
+              <option value="Bendla_SC">Bendla_SC</option>
+              <option value="Bengali_OC">Bengali_OC</option>
+              <option value="Beri Sheety_BC">Beri Sheety_BC</option>
+              <option value="Bestha_BC">Bestha_BC</option>
+              <option value="Bhadbhunja_BC">Bhadbhunja_BC</option>
+              <option value="Bhahurupi_BC">Bhahurupi_BC</option>
+              <option value="Bhunjwa_BC">Bhunjwa_BC</option>
+              <option value="Bikshaka Vruthi_BC">Bikshaka Vruthi_BC</option>
+              <option value="Biksham Gunta_BC">Biksham Gunta_BC</option>
+              <option value="Bil_ST">Bil_ST</option>
+              <option value="Bindla_SC">Bindla_SC</option>
+              <option value="Binedu_SC">Binedu_SC</option>
+              <option value="Bodo Gadaba_ST">Bodo Gadaba_ST</option>
+              <option value="Bondili_BC">Bondili_BC</option>
+              <option value="Boya_BC">Boya_BC</option>
+              <option value="Brahmin_OC">Brahmin_OC</option>
+              <option value="Buda Bukkala_BC">Buda Bukkala_BC</option>
+              <option value="Budaga Jangam_SC">Budaga Jangam_SC</option>
+              <option value="Budubunjala_BC">Budubunjala_BC</option>
+              <option value="Bukka Ayyavara_BC">Bukka Ayyavara_BC</option>
+              <option value="Bukka_BC">Bukka_BC</option>
+              <option value="Byagara_SC">Byagara_SC</option>
+              <option value="Chachati_SC">Chachati_SC</option>
+              <option value="Chacherlu_OC">Chacherlu_OC</option>
+              <option value="Chalavadi_SC">Chalavadi_SC</option>
+              <option value="Challavadi_SC">Challavadi_SC</option>
+              <option value="Chamar_SC">Chamar_SC</option>
+              <option value="Chambar_SC">Chambar_SC</option>
+              <option value="Chanchandi_SC">Chanchandi_SC</option>
+              <option value="Chandala_SC">Chandala_SC</option>
+              <option value="Chavati_SC">Chavati_SC</option>
+              <option value="Chenchu Varu_ST">Chenchu Varu_ST</option>
+              <option value="Chenchumuni_ST">Chenchumuni_ST</option>
+              <option value="Chimpollu_BC">Chimpollu_BC</option>
+              <option value="Chithari_BC">Chithari_BC</option>
+              <option value="Chithrakara_BC">Chithrakara_BC</option>
+              <option value="Chitti Karanam_OC">Chitti Karanam_OC</option>
+              <option value="Chopamali_BC">Chopamali_BC</option>
+              <option value="Christian_OC">Christian_OC</option>
+              <option value="Converted Harijans_BC">Converted Harijans_BC</option>
+              <option value="Dakkal/Dakkala Varu_SC">Dakkal/Dakkala Varu_SC</option>
+              <option value="Damala_BC">Damala_BC</option>
+              <option value="Dandasi_SC">Dandasi_SC</option>
+              <option value="Dasari (BC-A)_BC">Dasari (BC-A)_BC</option>
+              <option value="Dasari (BC-D)_BC">Dasari (BC-D)_BC</option>
+              <option value="Deseeya kondulu _ST">Deseeya kondulu _ST</option>
+              <option value="Desiya Dondulu _ST">Desiya Dondulu _ST</option>
+              <option value="Devanga_BC">Devanga_BC</option>
+              <option value="Devara Vandlu_BC">Devara Vandlu_BC</option>
+              <option value="Dhor_SC">Dhor_SC</option>
+              <option value="Dhulia_ST">Dhulia_ST</option>
+              <option value="DomDombara_SC">DomDombara_SC</option>
+              <option value="Dommara_BC">Dommara_BC</option>
+              <option value="Dondra Kodulu _ST">Dondra Kodulu _ST</option>
+              <option value="Dudekula_MINORITY">Dudekula_MINORITY</option>
+              <option value="Ediga_BC">Ediga_BC</option>
+              <option value="EKILA_BC">EKILA_BC</option>
+              <option value="Ekiri_BC">Ekiri_BC</option>
+              <option value="Ellamma Vandlu_BC">Ellamma Vandlu_BC</option>
+              <option value="Ellasi_BC">Ellasi_BC</option>
+              <option value="Erla_ST">Erla_ST</option>
+              <option value="Gadabalu_ST">Gadabalu_ST</option>
+              <option value="Gadabas_ST">Gadabas_ST</option>
+              <option value="Gadava_BC">Gadava_BC</option>
+              <option value="Gajula Balija_BC">Gajula Balija_BC</option>
+              <option value="Gamalla Kalali_BC">Gamalla Kalali_BC</option>
+              <option value="Gandla_BC">Gandla_BC</option>
+              <option value="Ganga Varu_BC">Ganga Varu_BC</option>
+              <option value="Gangaputhra_BC">Gangaputhra_BC</option>
+              <option value="Gangireddu Varu_BC">Gangireddu Varu_BC</option>
+              <option value="Ganuga Sheety_BC">Ganuga Sheety_BC</option>
+              <option value="Gasi_SC">Gasi_SC</option>
+              <option value="Gavara_BC">Gavara_BC</option>
+              <option value="Ghasi_SC">Ghasi_SC</option>
+              <option value="Ginghar_BC">Ginghar_BC</option>
+              <option value="Giniyar_BC">Giniyar_BC</option>
+              <option value="Godagali_SC">Godagali_SC</option>
+              <option value="Godari_SC">Godari_SC</option>
+              <option value="Gondlu_BC">Gondlu_BC</option>
+              <option value="Gondu_ST">Gondu_ST</option>
+              <option value="Gosam_SC">Gosam_SC</option>
+              <option value="Gosangi_SC">Gosangi_SC</option>
+              <option value="Gotrala_BC">Gotrala_BC</option>
+              <option value="Goud-ST_ST">Goud-ST_ST</option>
+              <option value="Gouda_BC">Gouda_BC</option>
+              <option value="Goudh_ST">Goudh_ST</option>
+              <option value="Goundla_BC">Goundla_BC</option>
+              <option value="Gudala_BC">Gudala_BC</option>
+              <option value="Gudia_BC">Gudia_BC</option>
+              <option value="Gudiya_BC">Gudiya_BC</option>
+              <option value="Gutob Gadaba_ST">Gutob Gadaba_ST</option>
+              <option value="Haddi (or) Relli chachandi_SC">Haddi (or) Relli chachandi_SC</option>
+              <option value="Haddi_SC">Haddi_SC</option>
+              <option value="Harijans_SC">Harijans_SC</option>
+              <option value="Hatkhar_BC">Hatkhar_BC</option>
+              <option value="Hill Reddis_ST">Hill Reddis_ST</option>
+              <option value="Huleya Dasari_SC">Huleya Dasari_SC</option>
+              <option value="Huleya_SC">Huleya_SC</option>
+              <option value="Jaggali_SC">Jaggali_SC</option>
+              <option value="JaJnbllvulu_SC">JaJnbllvulu_SC</option>
+              <option value="Jakkula_BC">Jakkula_BC</option>
+              <option value="Jalari_BC">Jalari_BC</option>
+              <option value="Jambavulu_SC">Jambavulu_SC</option>
+              <option value="Jandra_BC">Jandra_BC</option>
+              <option value="Jangam_BC">Jangam_BC</option>
+              <option value="Jathapass_ST">Jathapass_ST</option>
+              <option value="Jogi_BC">Jogi_BC</option>
+              <option value="Jogula_SC">Jogula_SC</option>
+              <option value="Joshinandala Bala_BC">Joshinandala Bala_BC</option>
+              <option value="Kachi_BC">Kachi_BC</option>
+              <option value="Kaikadi_BC">Kaikadi_BC</option>
+              <option value="Kaikala_BC">Kaikala_BC</option>
+              <option value="Kaitha Lambadi(Labhana)_BC">Kaitha Lambadi(Labhana)_BC</option>
+              <option value="Kakkana_BC">Kakkana_BC</option>
+              <option value="Kalai Balija_OC">Kalai Balija_OC</option>
+              <option value="Kalavanthulu Ganika_BC">Kalavanthulu Ganika_BC</option>
+              <option value="Kalinga Vysya_OC">Kalinga Vysya_OC</option>
+              <option value="KALINGA_BC">KALINGA_BC</option>
+              <option value="kallayi gadaba_ST">kallayi gadaba_ST</option>
+              <option value="Kalli Kapu_BC">Kalli Kapu_BC</option>
+              <option value="Kammara (BC)_BC">Kammara (BC)_BC</option>
+              <option value="Kammara (ST)_ST">Kammara (ST)_ST</option>
+              <option value="Kamma_OC">Kamma_OC</option>
+              <option value="Kamsali/Vishva Bramhana_BC">Kamsali/Vishva Bramhana_BC</option>
+              <option value="Kanchra _BC">Kanchra _BC</option>
+              <option value="Kandhra_BC">Kandhra_BC</option>
+              <option value="Kanjara Battu_BC">Kanjara Battu_BC</option>
+              <option value="Kapu Kapu_OC">Kapu Kapu_OC</option>
+              <option value="Kapu-ST_ST">Kapu-ST_ST</option>
+              <option value="Kapu_OC">Kapu_OC</option>
+              <option value="KARANAM_BC">KARANAM_BC</option>
+              <option value="KARIKALABHAKTHULA_BC">KARIKALABHAKTHULA_BC</option>
+              <option value="Karna Bakthulu_BC">Karna Bakthulu_BC</option>
+              <option value="KARNABHAKTHULA_BC">KARNABHAKTHULA_BC</option>
+              <option value="Kasikapadi_BC">Kasikapadi_BC</option>
+              <option value="Kathri_BC">Kathri_BC</option>
+              <option value="Kati Papala_BC">Kati Papala_BC</option>
+              <option value="Katunaikan_ST">Katunaikan_ST</option>
+              <option value="Kavali_BC">Kavali_BC</option>
+              <option value="Kerala_OC">Kerala_OC</option>
+              <option value="Keuta_BC">Keuta_BC</option>
+              <option value="Keviti_BC">Keviti_BC</option>
+              <option value="Kevuto_BC">Kevuto_BC</option>
+              <option value="Kinthala Kalinga_BC">Kinthala Kalinga_BC</option>
+              <option value="Kirathaka_BC">Kirathaka_BC</option>
+              <option value="Kodhu_ST">Kodhu_ST</option>
+              <option value="Kodi_ST">Kodi_ST</option>
+              <option value="Kolam_ST">Kolam_ST</option>
+              <option value="Kolawar_ST">Kolawar_ST</option>
+              <option value="Koluvula Vandlu_SC">Koluvula Vandlu_SC</option>
+              <option value="Kompara/Reddika_BC">Kompara/Reddika_BC</option>
+              <option value="Konda Doralu_ST">Konda Doralu_ST</option>
+              <option value="Konda Kapulu_ST">Konda Kapulu_ST</option>
+              <option value="Konda Reddlu_ST">Konda Reddlu_ST</option>
+              <option value="Kondlu_ST">Kondlu_ST</option>
+              <option value="Koppula Velama_BC">Koppula Velama_BC</option>
+              <option value="Koputiya_ST">Koputiya_ST</option>
+              <option value="Koram_ST">Koram_ST</option>
+              <option value="Korcha_BC">Korcha_BC</option>
+              <option value="Kosti_BC">Kosti_BC</option>
+              <option value="Kotiya Benthu_ST">Kotiya Benthu_ST</option>
+              <option value="Kotiya_ST">Kotiya_ST</option>
+              <option value="Koya_ST">Koya_ST</option>
+              <option value="Krushna Balija_BC">Krushna Balija_BC</option>
+              <option value="Kshathriya (BC)_BC">Kshathriya (BC)_BC</option>
+              <option value="Kshatriya (OC)_OC">Kshatriya (OC)_OC</option>
+              <option value="Kuliya_ST">Kuliya_ST</option>
+              <option value="Kulwalapai_ST">Kulwalapai_ST</option>
+              <option value="Kummara_BC">Kummara_BC</option>
+              <option value="Kunapuli_BC">Kunapuli_BC</option>
+              <option value="Kunkuma_BC">Kunkuma_BC</option>
+              <option value="Kuraba_BC">Kuraba_BC</option>
+              <option value="Kurakala_BC">Kurakala_BC</option>
+              <option value="Kurni_BC">Kurni_BC</option>
+              <option value="Kuruma_BC">Kuruma_BC</option>
+              <option value="Kuttiya Kodulu _ST">Kuttiya Kodulu _ST</option>
+              <option value="Labbai_BC">Labbai_BC</option>
+              <option value="Laddaf_MINORITY">Laddaf_MINORITY</option>
+              <option value="Lakkamari Kapu_BC">Lakkamari Kapu_BC</option>
+              <option value="Lambada_BC">Lambada_BC</option>
+              <option value="Lambadi_ST">Lambadi_ST</option>
+              <option value="Lingayat_BC">Lingayat_BC</option>
+              <option value="Lodha_BC">Lodha_BC</option>
+              <option value="Lodhi_BC">Lodhi_BC</option>
+              <option value="Lodh_BC">Lodh_BC</option>
+              <option value="Madiga Dasu_SC">Madiga Dasu_SC</option>
+              <option value="Madiga_SC">Madiga_SC</option>
+              <option value="Madisi Kuruva/Madaari Kuruva_SC">Madisi Kuruva/Madaari Kuruva_SC</option>
+              <option value="Mahar_SC">Mahar_SC</option>
+              <option value="Mahathar_BC">Mahathar_BC</option>
+              <option value="Mala Dasari_SC">Mala Dasari_SC</option>
+              <option value="Mala Hannai_SC">Mala Hannai_SC</option>
+              <option value="Mala Jangam_SC">Mala Jangam_SC</option>
+              <option value="Mala Masthi_SC">Mala Masthi_SC</option>
+              <option value="Mala Sala_SC">Mala Sala_SC</option>
+              <option value="Mala sanyasi_SC">Mala sanyasi_SC</option>
+              <option value="Maladasu_ST">Maladasu_ST</option>
+              <option value="Mala_SC">Mala_SC</option>
+              <option value="Malin_ST">Malin_ST</option>
+              <option value="Mali_BC">Mali_BC</option>
+              <option value="Mandala (BC)_BC">Mandala (BC)_BC</option>
+              <option value="Mandala (SC)_SC">Mandala (SC)_SC</option>
+              <option value="Mandula_BC">Mandula_BC</option>
+              <option value="Mang Garodi_SC">Mang Garodi_SC</option>
+              <option value="Manga_SC">Manga_SC</option>
+              <option value="Manna Dora_ST">Manna Dora_ST</option>
+              <option value="Mannepu_SC">Mannepu_SC</option>
+              <option value="Mannevaru_ST">Mannevaru_ST</option>
+              <option value="Manne_SC">Manne_SC</option>
+              <option value="MARATI_OC">MARATI_OC</option>
+              <option value="MARWADI_OC">MARWADI_OC</option>
+              <option value="Masthima_SC">Masthima_SC</option>
+              <option value="Masthi_SC">Masthi_SC</option>
+              <option value="Mathangi_SC">Mathangi_SC</option>
+              <option value="Mathaya Vavaras (or) Kuttu Vavaras_ST">Mathaya Vavaras (or) Kuttu Vavaras_ST</option>
+              <option value="Mathula_BC">Mathula_BC</option>
+              <option value="MAYDARA_BC">MAYDARA_BC</option>
+              <option value="Medari_BC">Medari_BC</option>
+              <option value="Mehthar_SC">Mehthar_SC</option>
+              <option value="Mera Darji_BC">Mera Darji_BC</option>
+              <option value="Mitha Iyala Varu_SC">Mitha Iyala Varu_SC</option>
+              <option value="Mochi_SC">Mochi_SC</option>
+              <option value="Mohamad_MINORITY">Mohamad_MINORITY</option>
+              <option value="Mondi Banda_BC">Mondi Banda_BC</option>
+              <option value="Mondi Varu_BC">Mondi Varu_BC</option>
+              <option value="Mondipatta_BC">Mondipatta_BC</option>
+              <option value="Moochi_SC">Moochi_SC</option>
+              <option value="Muchi_BC">Muchi_BC</option>
+              <option value="Mudaliar_BC">Mudaliar_BC</option>
+              <option value="Mudhiraj_BC">Mudhiraj_BC</option>
+              <option value="Muka Dora_ST">Muka Dora_ST</option>
+              <option value="MUNDALA_SC">MUNDALA_SC</option>
+              <option value="Munnoor Kapu_BC">Munnoor Kapu_BC</option>
+              <option value="Muslim_MINORITY">Muslim_MINORITY</option>
+              <option value="Mutharasi_BC">Mutharasi_BC</option>
+              <option value="Muthyalamma Vandlu_BC">Muthyalamma Vandlu_BC</option>
+              <option value="Myralu_OC">Myralu_OC</option>
+              <option value="N/A_BC">N/A_BC</option>
+              <option value="Nadar_OC">Nadar_OC</option>
+              <option value="Nagaralu_BC">Nagaralu_BC</option>
+              <option value="Nagavaddilu_BC">Nagavaddilu_BC</option>
+              <option value="Nagavamsha_BC">Nagavamsha_BC</option>
+              <option value="Nagavasam _BC">Nagavasam _BC</option>
+              <option value="Naikpoth_ST">Naikpoth_ST</option>
+              <option value="Naik_ST">Naik_ST</option>
+              <option value="Nakhan_BC">Nakhan_BC</option>
+              <option value="Nakkala_BC">Nakkala_BC</option>
+              <option value="Nambi_OC">Nambi_OC</option>
+              <option value="Nashadi_BC">Nashadi_BC</option>
+              <option value="Nashni/Kurni_BC">Nashni/Kurni_BC</option>
+              <option value="Natari_BC">Natari_BC</option>
+              <option value="Nayaka_ST">Nayaka_ST</option>
+              <option value="Nayani Varu_BC">Nayani Varu_BC</option>
+              <option value="Nayanivaru_BC">Nayanivaru_BC</option>
+              <option value="Nayee Brahmin_BC">Nayee Brahmin_BC</option>
+              <option value="Nayyala_BC">Nayyala_BC</option>
+              <option value="Neelikanti_BC">Neelikanti_BC</option>
+              <option value="Nelli_BC">Nelli_BC</option>
+              <option value="NEPALI_SC">NEPALI_SC</option>
+              <option value="Nera Pravruthi Kalavaru_BC">Nera Pravruthi Kalavaru_BC</option>
+              <option value="Nershakari_BC">Nershakari_BC</option>
+              <option value="Nessi_BC">Nessi_BC</option>
+              <option value="Nethekani_SC">Nethekani_SC</option>
+              <option value="Nokkara_BC">Nokkara_BC</option>
+              <option value="Nooka Dora_ST">Nooka Dora_ST</option>
+              <option value="Oreganti Reddy_OC">Oreganti Reddy_OC</option>
+              <option value="OTHERS-BC_BC">OTHERS-BC_BC</option>
+              <option value="OTHERS-OC_OC">OTHERS-OC_OC</option>
+              <option value="OTHERS-SC_SC">OTHERS-SC_SC</option>
+              <option value="OTHERS-ST_ST">OTHERS-ST_ST</option>
+              <option value="OTHERS_BC">OTHERS_BC</option>
+              <option value="Padmashali_BC">Padmashali_BC</option>
+              <option value="Paidi/pano_SC">Paidi/pano_SC</option>
+              <option value="Paiko_ST">Paiko_ST</option>
+              <option value="Paki (or) Mothi_SC">Paki (or) Mothi_SC</option>
+              <option value="Pala Ekari_BC">Pala Ekari_BC</option>
+              <option value="Palegaru_BC">Palegaru_BC</option>
+              <option value="Pallepu Kapu_BC">Pallepu Kapu_BC</option>
+              <option value="Palli Kapu_BC">Palli Kapu_BC</option>
+              <option value="Palli Reddy_BC">Palli Reddy_BC</option>
+              <option value="Palli_BC">Palli_BC</option>
+              <option value="Pambala_BC">Pambala_BC</option>
+              <option value="Pamidi_SC">Pamidi_SC</option>
+              <option value="Pamula_BC">Pamula_BC</option>
+              <option value="Panchama (or) Pariyuhi_SC">Panchama (or) Pariyuhi_SC</option>
+              <option value="Panda_OC">Panda_OC</option>
+              <option value="Panjari_BC">Panjari_BC</option>
+              <option value="Pannari_BC">Pannari_BC</option>
+              <option value="Parangi Parcha_ST">Parangi Parcha_ST</option>
+              <option value="Pardhan_ST">Pardhan_ST</option>
+              <option value="Parthi_BC">Parthi_BC</option>
+              <option value="Paspi_BC">Paspi_BC</option>
+              <option value="Passi_BC">Passi_BC</option>
+              <option value="Pathan_MINORITY">Pathan_MINORITY</option>
+              <option value="Patkhar_BC">Patkhar_BC</option>
+              <option value="Patlavu_BC">Patlavu_BC</option>
+              <option value="Patnayak(BC)_BC">Patnayak(BC)_BC</option>
+              <option value="Patnayak_OC">Patnayak_OC</option>
+              <option value="PATRA_BC">PATRA_BC</option>
+              <option value="Pattapu_BC">Pattapu_BC</option>
+              <option value="Pattusali_BC">Pattusali_BC</option>
+              <option value="Peddaboya_BC">Peddaboya_BC</option>
+              <option value="Peddama Vandlu_BC">Peddama Vandlu_BC</option>
+              <option value="Perika Balija _BC">Perika Balija _BC</option>
+              <option value="Perika_BC">Perika_BC</option>
+              <option value="Pinjari/Noorbash_MINORITY">Pinjari/Noorbash_MINORITY</option>
+              <option value="Piriki Muggula_BC">Piriki Muggula_BC</option>
+              <option value="Pitchiguntla_BC">Pitchiguntla_BC</option>
+              <option value="Polinati Velama_BC">Polinati Velama_BC</option>
+              <option value="Pondara_BC">Pondara_BC</option>
+              <option value="Poosala(BC-A)_BC">Poosala(BC-A)_BC</option>
+              <option value="Poosala(BC-D)_BC">Poosala(BC-D)_BC</option>
+              <option value="Porja_ST">Porja_ST</option>
+              <option value="Porvam Bikshaka Vruthi_BC">Porvam Bikshaka Vruthi_BC</option>
+              <option value="Pusala_OC">Pusala_OC</option>
+              <option value="Putiya_ST">Putiya_ST</option>
+              <option value="Rajaka_BC">Rajaka_BC</option>
+              <option value="Rajannala_BC">Rajannala_BC</option>
+              <option value="Rajput_OC">Rajput_OC</option>
+              <option value="Rajugondu_ST">Rajugondu_ST</option>
+              <option value="Raju_OC">Raju_OC</option>
+              <option value="Rangaraju/Bhavasara Kshatriya_BC">Rangaraju/Bhavasara Kshatriya_BC</option>
+              <option value="Ravula_OC">Ravula_OC</option>
+              <option value="Reddika_BC">Reddika_BC</option>
+              <option value="Reddy Dora_ST">Reddy Dora_ST</option>
+              <option value="Reddy Kapu_OC">Reddy Kapu_OC</option>
+              <option value="Reddy Reddy_OC">Reddy Reddy_OC</option>
+              <option value="Reddy_OC">Reddy_OC</option>
+              <option value="Relli_SC">Relli_SC</option>
+              <option value="Rona Rena_ST">Rona Rena_ST</option>
+              <option value="Sabeerlu_SC">Sabeerlu_SC</option>
+              <option value="Sadara_BC">Sadara_BC</option>
+              <option value="Sadushetti_BC">Sadushetti_BC</option>
+              <option value="Saikalgar_BC">Saikalgar_BC</option>
+              <option value="Sakulasali_BC">Sakulasali_BC</option>
+              <option value="Samagara_SC">Samagara_SC</option>
+              <option value="Samanthula_BC">Samanthula_BC</option>
+              <option value="Samband_SC">Samband_SC</option>
+              <option value="Sambas_SC">Sambas_SC</option>
+              <option value="Sandrona_ST">Sandrona_ST</option>
+              <option value="Sangundam_BC">Sangundam_BC</option>
+              <option value="Sapru_SC">Sapru_SC</option>
+              <option value="Sardhan_ST">Sardhan_ST</option>
+              <option value="Sathani_BC">Sathani_BC</option>
+              <option value="Savaras Kapusavaras_ST">Savaras Kapusavaras_ST</option>
+              <option value="Seervi_BC">Seervi_BC</option>
+              <option value="Settibalija_BC">Settibalija_BC</option>
+              <option value="Shilpi_BC">Shilpi_BC</option>
+              <option value="Siddula_BC">Siddula_BC</option>
+              <option value="Sidopaiko_ST">Sidopaiko_ST</option>
+              <option value="Sikh_MINORITY">Sikh_MINORITY</option>
+              <option value="Sikligar_BC">Sikligar_BC</option>
+              <option value="Silpis viswakarma_BC">Silpis viswakarma_BC</option>
+              <option value="Sindollu_SC">Sindollu_SC</option>
+              <option value="Singh_OC">Singh_OC</option>
+              <option value="Sistakaranam_BC">Sistakaranam_BC</option>
+              <option value="sondi_BC">sondi_BC</option>
+              <option value="Sountia_BC">Sountia_BC</option>
+              <option value="Sri Sayan_BC">Sri Sayan_BC</option>
+              <option value="Sugaleelu_ST">Sugaleelu_ST</option>
+              <option value="sundi_BC">sundi_BC</option>
+              <option value="Surya Balija_BC">Surya Balija_BC</option>
+              <option value="Suryavamsha Rajulu_BC">Suryavamsha Rajulu_BC</option>
+              <option value="Syed_MINORITY">Syed_MINORITY</option>
+              <option value="Telaga_OC">Telaga_OC</option>
+              <option value="Telikula_BC">Telikula_BC</option>
+              <option value="Telugu Matlade Varu_BC">Telugu Matlade Varu_BC</option>
+              <option value="test23_BC">test23_BC</option>
+              <option value="test_BC">test_BC</option>
+              <option value="Thalikula_BC">Thalikula_BC</option>
+              <option value="Thammali_BC">Thammali_BC</option>
+              <option value="Thenugollu_BC">Thenugollu_BC</option>
+              <option value="Thikakariya Kodulu _ST">Thikakariya Kodulu _ST</option>
+              <option value="Thogati Thogata_BC">Thogati Thogata_BC</option>
+              <option value="Thoti (BC)_SC">Thoti (BC)_SC</option>
+              <option value="Thoti (ST)_ST">Thoti (ST)_ST</option>
+              <option value="Thurapu Kapu/Gajula Kapu_BC">Thurapu Kapu/Gajula Kapu_BC</option>
+              <option value="Tolagari_BC">Tolagari_BC</option>
+              <option value="Uppara/Sankara_BC">Uppara/Sankara_BC</option>
+              <option value="Uppu vadde_BC">Uppu vadde_BC</option>
+              <option value="Vadabalija_BC">Vadabalija_BC</option>
+              <option value="Vaddera_BC">Vaddera_BC</option>
+              <option value="Vaddi_BC">Vaddi_BC</option>
+              <option value="Vaddolu_BC">Vaddolu_BC</option>
+              <option value="Vadla_BC">Vadla_BC</option>
+              <option value="Vadrangi_BC">Vadrangi_BC</option>
+              <option value="Vadra_BC">Vadra_BC</option>
+              <option value="Valli Reddy_BC">Valli Reddy_BC</option>
+              <option value="Valli_BC">Valli_BC</option>
+              <option value="Valluvan_SC">Valluvan_SC</option>
+              <option value="Valmiki Boya_BC">Valmiki Boya_BC</option>
+              <option value="Valmiki(BC)_BC">Valmiki(BC)_BC</option>
+              <option value="Valmiki_ST">Valmiki_ST</option>
+              <option value="Vamsharaj_BC">Vamsharaj_BC</option>
+              <option value="Vanjari_BC">Vanjari_BC</option>
+              <option value="Vanne Kapu_BC">Vanne Kapu_BC</option>
+              <option value="Vanne Reddy_BC">Vanne Reddy_BC</option>
+              <option value="Vannekapu_BC">Vannekapu_BC</option>
+              <option value="Vanyakulakshatriya_BC">Vanyakulakshatriya_BC</option>
+              <option value="varala_BC">varala_BC</option>
+              <option value="Vatti Kothala_BC">Vatti Kothala_BC</option>
+              <option value="Vedabaliga_BC">Vedabaliga_BC</option>
+              <option value="Veerabhadreeya_BC">Veerabhadreeya_BC</option>
+              <option value="Veerashaiva LingayatLingabalija_BC">Veerashaiva LingayatLingabalija_BC</option>
+              <option value="Velama_OC">Velama_OC</option>
+              <option value="Venka Kula_BC">Venka Kula_BC</option>
+              <option value="Vera Musti_BC">Vera Musti_BC</option>
+              <option value="Vodde Yeddelu_BC">Vodde Yeddelu_BC</option>
+              <option value="Vokkaliga_BC">Vokkaliga_BC</option>
+              <option value="Voriya/bentu Voriya_ST">Voriya/bentu Voriya_ST</option>
+              <option value="Vyakula_BC">Vyakula_BC</option>
+              <option value="Vysya_OC">Vysya_OC</option>
+              <option value="Yadava_BC">Yadava_BC</option>
+              <option value="Yalam Reddy_OC">Yalam Reddy_OC</option>
+              <option value="Yatala_SC">Yatala_SC</option>
+              <option value="Yata_BC">Yata_BC</option>
+              <option value="Yellimal Varu_SC">Yellimal Varu_SC</option>
+              <option value="Yenadi_ST">Yenadi_ST</option>
+              <option value="Yerukala_ST">Yerukala_ST</option>
+              <option value="Yoniti Kodulu_ST">Yoniti Kodulu_ST</option>              
+              <option value="Other">Other</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="btn-container">
+        <button type="button" id="resetBtn" class="btn btn-outline">
+          <i class="fas fa-undo"></i> Reset
+        </button>
+        <button type="submit" id="submitBtn" class="btn btn-success">
+          <i class="fas fa-save"></i> <span id="submitBtnText">Submit</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="table-container">
+      <div class="table-header">
+        <h3 class="table-title">Membership Entries</h3>
+        <div>
+          <span id="entryCount" class="badge">0 Entries</span>
+        </div>
+      </div>
+      
+      <div id="tableContent">
+        <table id="entryTable">
+          <thead>
+            <tr>
+              <th>Serial No</th>
+              <th>Booth</th>
+              <th>First Member</th>
+              <th>First Mobile</th>
+              <th>First Caste</th>
+              <th>Second Member</th>
+              <th>Second Mobile</th>
+              <th>Second Caste</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        
+        <div id="emptyState" class="empty-state">
+          <i class="fas fa-clipboard-list"></i>
+          <h4 class="empty-text">No entries yet</h4>
+          <p>Fill out the form above to add your first entry</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button id="backToTopBtn"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- Google Sheets Form (Hidden) -->
+  <form id="google-sheet-form" style="display: none;">
+    <!-- Hidden fields to submit data to Google Sheets -->
+    <input type="hidden" name="serialNo" id="gs-serialNo">
+    <input type="hidden" name="booth" id="gs-booth">
+    <input type="hidden" name="fromSerial" id="gs-fromSerial">
+    <input type="hidden" name="toSerial" id="gs-toSerial">
+    <input type="hidden" name="firstMemberID" id="gs-firstMemberID">
+    <input type="hidden" name="firstMemberMobile" id="gs-firstMemberMobile">
+    <input type="hidden" name="firstMemberCaste" id="gs-firstMemberCaste">
+    <input type="hidden" name="secondMemberID" id="gs-secondMemberID">
+    <input type="hidden" name="secondMemberMobile" id="gs-secondMemberMobile">
+    <input type="hidden" name="secondMemberCaste" id="gs-secondMemberCaste">
+  </form>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/choices.js/9.0.1/choices.min.js"></script>
+  <script>
+    // Initialize Choices.js for select elements
+    const firstCasteSelect = new Choices('#firstMemberCaste', {
+      searchEnabled: true,
+      itemSelectText: '',
+      placeholder: true,
+      placeholderValue: 'Select caste category',
+    });
+    
+    const secondCasteSelect = new Choices('#secondMemberCaste', {
+      searchEnabled: true,
+      itemSelectText: '',
+      placeholder: true,
+      placeholderValue: 'Select caste category',
+    });
+
+    // DOM Elements
+    const membershipForm = document.getElementById("membershipForm");
+    const tableBody = document.querySelector("#entryTable tbody");
+    const editIndexInput = document.getElementById("editIndex");
+    const formContainer = document.getElementById("formContainer");
+    const editingBadge = document.getElementById("editingBadge");
+    const submitBtn = document.getElementById("submitBtn");
+    const submitBtnText = document.getElementById("submitBtnText");
+    const resetBtn = document.getElementById("resetBtn");
+    const entryCountBadge = document.getElementById("entryCount");
+    const emptyState = document.getElementById("emptyState");
+    const entryTable = document.getElementById("entryTable");
+    const alertContainer = document.getElementById("alertContainer");
+    const backToTopBtn = document.getElementById("backToTopBtn");
+    const googleSheetForm = document.getElementById("google-sheet-form");
+    
+    // Store entries array
+    let entries = [];
+    
+    // Initialize the table on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      renderTable();
+    });
+
+    // Back to top button functionality
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+    
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Show alert message
+    function showAlert(message, type = 'success') {
+      const alert = document.createElement('div');
+      alert.className = `alert alert-${type === 'success' ? 'success' : 'error'}`;
+      alert.innerHTML = `
+        <i class="${type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-circle'}"></i>
+        ${message}
+      `;
+      alertContainer.innerHTML = '';
+      alertContainer.appendChild(alert);
+      alert.style.display = 'block';
+      
+      // Auto hide after 3 seconds
+      setTimeout(() => {
+        alert.style.opacity = '0';
+        alert.style.transition = 'opacity 0.5s';
+        setTimeout(() => {
+          alertContainer.innerHTML = '';
+        }, 500);
+      }, 3000);
+    }
+
+    // Submit data to Google Sheets
+    function submitToGoogleSheets(data) {
+      // Populate the hidden Google Sheet form with data
+      document.getElementById("gs-serialNo").value = data.serialNo;
+      document.getElementById("gs-booth").value = data.booth;
+      document.getElementById("gs-fromSerial").value = data.fromSerial;
+      document.getElementById("gs-toSerial").value = data.toSerial;
+      document.getElementById("gs-firstMemberID").value = data.firstMemberID;
+      document.getElementById("gs-firstMemberMobile").value = data.firstMemberMobile;
+      document.getElementById("gs-firstMemberCaste").value = data.firstMemberCaste;
+      document.getElementById("gs-secondMemberID").value = data.secondMemberID;
+      document.getElementById("gs-secondMemberMobile").value = data.secondMemberMobile;
+      document.getElementById("gs-secondMemberCaste").value = data.secondMemberCaste;
+      
+      // Google Sheets submission
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbxVbzMCQbb-J2gsV_7683H4OoUTtq--he3udKnDKLNjzlhABAcEyFAwvBHVhZ3l23J0/exec';
+      
+      fetch(scriptURL, { 
+        method: 'POST', 
+        body: new FormData(googleSheetForm) 
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error('Google Sheets submission failed');
+          // We don't show an error to the user since the local entry was successful
+        }
+      })
+      .catch(error => console.error('Error with Google Sheets!', error.message));
+    }
+
+    // Handle form submission
+    membershipForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      // Collect form data
+      const data = {
+        serialNo: document.getElementById("serialNo").value,
+        booth: document.getElementById("booth").value,
+        fromSerial: document.getElementById("fromSerial").value,
+        toSerial: document.getElementById("toSerial").value,
+        firstMemberID: document.getElementById("firstMemberID").value,
+        firstMemberMobile: document.getElementById("firstMemberMobile").value,
+        firstMemberCaste: document.getElementById("firstMemberCaste").value,
+        secondMemberID: document.getElementById("secondMemberID").value,
+        secondMemberMobile: document.getElementById("secondMemberMobile").value,
+        secondMemberCaste: document.getElementById("secondMemberCaste").value
+      };
+
+      const editIndex = editIndexInput.value;
+
+      // Update existing entry or add new one
+      if (editIndex !== "") {
+        entries[editIndex] = data;
+        editIndexInput.value = "";
+        showAlert("Entry updated successfully!");
+        formContainer.classList.remove("editing-mode");
+        editingBadge.style.display = "none";
+        submitBtnText.textContent = "Submit";
+      } else {
+        entries.push(data);
+        showAlert("New entry added successfully!");
+        
+        // Submit to Google Sheets only for new entries
+        submitToGoogleSheets(data);
+      }
+
+      // Reset form fields
+      resetForm();
+      
+      // Update table
+      renderTable();
+    });
+
+    // Reset form button
+    resetBtn.addEventListener("click", function() {
+      resetForm();
+      formContainer.classList.remove("editing-mode");
+      editingBadge.style.display = "none";
+      submitBtnText.textContent = "Submit";
+      editIndexInput.value = "";
+    });
+
+    // Reset all form fields
+    function resetForm() {
+      membershipForm.reset();
+      firstCasteSelect.setChoiceByValue("");
+      secondCasteSelect.setChoiceByValue("");
+    }
+
+    // Render the table with entries
+    function renderTable() {
+      // Update entry count
+      entryCountBadge.textContent = `${entries.length} ${entries.length === 1 ? 'Entry' : 'Entries'}`;
+      
+      // Show empty state or table based on entries
+      if (entries.length === 0) {
+        emptyState.style.display = "block";
+        entryTable.style.display = "none";
+        return;
+      } else {
+        emptyState.style.display = "none";
+        entryTable.style.display = "table";
+      }
+      
+      // Clear the table body
+      tableBody.innerHTML = "";
+      
+      // Add entries to the table
+      entries.forEach((entry, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${entry.serialNo}</td>
+          <td>${entry.booth}</td>
+          <td>${entry.firstMemberID}</td>
+          <td>${entry.firstMemberMobile}</td>
+          <td>${entry.firstMemberCaste}</td>
+          <td>${entry.secondMemberID}</td>
+          <td>${entry.secondMemberMobile}</td>
+          <td>${entry.secondMemberCaste}</td>
+          <td>
+            <button class="action-btn" onclick="editEntry(${index})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button class="action-btn delete-btn" onclick="deleteEntry(${index})">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Edit an entry
+    window.editEntry = function(index) {
+      const entry = entries[index];
+      
+      // Populate form with entry data
+      document.getElementById("serialNo").value = entry.serialNo;
+      document.getElementById("booth").value = entry.booth;
+      document.getElementById("fromSerial").value = entry.fromSerial;
+      document.getElementById("toSerial").value = entry.toSerial;
+      document.getElementById("firstMemberID").value = entry.firstMemberID;
+      document.getElementById("firstMemberMobile").value = entry.firstMemberMobile;
+      document.getElementById("secondMemberID").value = entry.secondMemberID;
+      document.getElementById("secondMemberMobile").value = entry.secondMemberMobile;
+
+      // Set select fields
+      firstCasteSelect.setChoiceByValue(entry.firstMemberCaste);
+      secondCasteSelect.setChoiceByValue(entry.secondMemberCaste);
+
+      // Set edit mode
+      editIndexInput.value = index;
+      formContainer.classList.add("editing-mode");
+      editingBadge.style.display = "inline-block";
+      submitBtnText.textContent = "Update";
+      
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Delete an entry
+    window.deleteEntry = function(index) {
+      if (confirm("Are you sure you want to delete this entry?")) {
+        entries.splice(index, 1);
+        renderTable();
+        showAlert("Entry deleted successfully!", "error");
+        
+        // If currently editing the deleted entry, reset the form
+        if (editIndexInput.value == index) {
+          resetForm();
+          formContainer.classList.remove("editing-mode");
+          editingBadge.style.display = "none";
+          submitBtnText.textContent = "Submit";
+          editIndexInput.value = "";
+        }
+      }
+    };
+
+    // Export functionality (could be expanded in the future)
+    window.exportData = function() {
+      const dataStr = JSON.stringify(entries);
+      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+      
+      const exportFileDefaultName = 'booth-membership-data.json';
+      
+      let linkElement = document.createElement('a');
+      linkElement.setAttribute('href', dataUri);
+      linkElement.setAttribute('download', exportFileDefaultName);
+      linkElement.click();
+    };
+  </script>
+</body>
+</html>
